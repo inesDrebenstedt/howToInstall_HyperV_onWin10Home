@@ -1,0 +1,22 @@
+HOW TO INSTALL HYPER-V on WIN10 HOME:
+------------------------------------
+1. At Startup, activate Virtualization under System Configs in BIOS
+2. Save the following code as hv.bat, then run as admin:
+     pushd "%~dp0"
+     dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hv.txt
+     for /f %%i in ('findstr /i . hv.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+     del hv.txt
+     Dism /online /enable-feature /featurename:Microsoft-Hyper-V -All /LimitAccess /ALL
+     pause
+	 
+3. Open command line tool as admin, then copy/paste + Enter the following line:
+	DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V
+	
+4. Restart your PC.
+5. install docker on your PC.
+6. When you run docker for the first time after installation, you might get the error message
+"WSL 2 installation is incomplete." Do not close the docker app but leave the app in its state.
+Whithin the error message you will be given the link https://aka.ms/wsl2kernel.
+There you can download your appropriate WSL 2 Linux kernel, then install it on your PC.
+If this step is finished, click on "Restart" of the docker error message.
+The docker Desktop app will restart and should work just fine.
